@@ -1,0 +1,33 @@
+def move_toward(pos, delta, target):					// 현재 위치값, 거리, 목표 위치값을 move_toward함수로 받는다.( 매개변수)
+    done = False							// 도착하면 True 아닌경우 False 값을 의미하는 변수이다.
+    x,y = pos[0] + delta[0], pos[1] + delta[1]				// x, y에 현재 위치와 거리를 더한다.
+     
+    if delta[0] > 0 and x >= target[0] or delta[0] < 0 and x <= target[0]:	// 만약 x값 거리가 0보다 크고 x값이 목표 위치값보다 크고 같거나 거리가 0보다 작고 x값이 목표 위치값보다 작거나 같으면
+        done = True							// done에 True.
+    if delta[1] > 0 and y >= target[1] or delta[1] < 0 and y <= target[1]:	// 만약 y값 거리가 0보다 크고 y값이 목표 위치값보다 크고 같거나 거리가 0보다 작고 y값이 목표 위치값보다 작거나 같으면
+        done = True							// done에 True.
+
+    pos = target if done else (x,y)					// 만약 done이 true이면 pos에 target값을 넣어준다 아니면 x, y값
+
+    return (pos, done)						// 좌표값과 불값을 리턴한다.
+
+
+def delta(pos, target, speed):					// 현재위치값, 목표 값, 속도를 인자로 받는 delta 함수이
+    dx, dy = target[0] - pos[0], target[1] - pos[1]  			// 목표값에서 현재위치값의 차이를 계산한다.
+    distance = math.sqrt(dx**2 + dy**2)				// 두 점의 거리를 계산해준다.
+    if distance == 0: return 0, 0					// 만약 거리가 0인경우 (현재 위치와 타겟 위치가 같을경우) 리턴한다.
+    return dx * speed / distance, dy * speed / distance			// 0이 아닌경우 dx와 dy값을 리턴한다.
+
+
+def move_toward_obj(obj):						// 매개변수가 오브젝트인 함수이다.
+    if obj.target == None: return					// 만약 오브젝트의 타겟값이 없으면 리턴한다.
+    pos, done = move_toward(obj.pos, obj.delta, obj.target)		// move_toward 함수를 이용해 pos, done 에 값을 넣는다.
+    if done:							// 만약 done이 찬성이면 초기화
+        obj.target = None
+        obj.delta = 0,0
+
+    obj.pos = pos							// 오브젝트의 좌표에 pos값을 대입한다.
+
+def set_target(obj, target):						// 오브젝트와 목표 위치의 값을 매개변수로 받는 함수이다.
+    obj.target = target						// 마우스로 클릭한 목표 위치를 오브젝트의 목표 위치에 대입한다.
+    obj.delta = 0,0 if target is None else delta(obj.pos, target, obj.speed)	// 만약 목표 위치값이 없다면 0,0 있다면 delta 함수의 값을 오브젝트 delta값에 넣어준다.
