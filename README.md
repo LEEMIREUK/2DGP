@@ -10,7 +10,7 @@
 >  총알은 무제한이며 아이템을 먹으면 점점 총알이 업그레이드 됩니다.
 >  죽으면 총알의 업그레이드는 리셋되며 목숨하나가 차감됩니다.
 ### 2. GameState
->+ GameState는 크게 3가지이며 이름은 아래와 같습니다.
+>+ GameState는 크게 4가지이며 이름은 아래와 같습니다.
 >```
 >TitleState
 >MainState
@@ -37,6 +37,9 @@
 >   + ESC 키를 눌러 Option 창으로 push_state 됩니다.
 >+ Option
 >   + 옵션창을 띄워주는 State입니다.
+>   + MainState에서 옵션창을 열 경우 이전 화면, 게임 설정을 할 수 있습니다.
+>   + GameState에서 옵션창을 열 경우 이전 화면, 게임 재시작, 게임 설정, 게임 종료를 할 수 있습니다.
+>   + 옵션창은 push_state를 이용합니다.
 >#####      [State 구조]  
 >![State](https://user-images.githubusercontent.com/32861131/94073721-e6124b80-fe32-11ea-9562-ab827f40a2df.PNG)
 ### 4. 필요한 기술
