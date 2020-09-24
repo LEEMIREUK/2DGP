@@ -1,35 +1,86 @@
 from pico2d import *
 import random
 
+RES_DIR = '../res'
+
 class Grass:
     def __init__(self):
         self.image = load_image('../res/grass.png')
+        
     def draw(self):
         self.image.draw(400, 30)
         
+    def update(self):
+        pass
+
+class Ball:
+    def __init__(self, x, y, dx, dy):
+        self.image = load_image(RES_DIR + '/ball21x21.png')
+        self.x, self.y = x, y
+        self.dx, self.dy = dx, dy
+        
+    def draw(self):
+        self.image.draw(self.x, self.y)
+    def update(self):
+        
+        self.x += self.dx
+        self.y += self.dy
+
+balls = []
+        
 class Boy:
     def __init__(self):
-        self.image = load_image('../res/animation_sheet.png')
-        self.x = random.randint(0, 300)
-        self.y = random.randint(0, 100) + 85
-        self.dx = random.random() # 0.0 ~ 1.0
-        self.dy = random.random()
-        self.frame_index = random.randint(0, 7)
-        self.action = random.randint(0, 3)
+        self.image = load_image(RES_DIR + '/animation_sheet.png')
+        self.x = get_canvas_width() // 2
+        self.y = get_canvas_height() // 2
+        self.dx, self.dy = 0, 0
+        self.fidx = random.randint(0, 7)
+        self.action = 3
         
-
     def draw(self):
-        self.image.clip_draw(100 * self.frame_index, 100 * self.action, 100, 100, self.x, self.y)
+        sx = self.fidx * 100
+        sy = self.action * 100
+        self.image.clip_draw(sx, sy, 100, 100, self.x, self.y)
 
     def update(self):
         self.x += self.dx
         self.y += self.dy
-        self.frame_index = (self.frame_index + 1) % 8
-        
-        if self.x % 100 == 0:
-            self.action = (self.action + 1) % 4
+        self.fidx = (self.fidx + 1) % 8
+
+    def fire(self):
+        ball = Ball(self.x, self.y, self.dx, self.dy)
+        balls.append(ball)
+
+    def handle_event(self, e):
+        prev_dx = self.dx
+        if e.type == SDL_KEYDOWN:
+            if e.key == SDLK_LEFT:
+                self.dx -= 1
+            elif e.key == SDLK_RIGHT:
+                self.dx += 1
+            elif e.key == SDLK_UP:
+                self.dy += 1
+            elif e.key == SDLK_SPACE:
+                self.fire()
+        elif e.type == SDL_KEYUP:
+            if e.key == SDLK_LEFT:
+                self.dx += 1
+            elif e.key == SDLK_RIGHT:
+                self.dx -= 1
+            elif e.key == SDLK_DOWN:
+                self.dy += 1
+            elif e.key == SDLK_UP:
+                self.dy -= 1
+
+        if prev_dx != self.dx:
+            if self.dx < 0:
+                self.action = 0
+            elif self.dx > 0:
+                self.action = 1
+            elif prev_dx < 0:
+                self.action = 2
+            elif prev_dx > 0:
+                self.action = 3
 
 if __name__=='__main__':
-    print("I am the main")
-else:
-    print("I am imported")
+    print("Running test code ^_^")
