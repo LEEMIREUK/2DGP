@@ -50,7 +50,7 @@
 >+ 이 게임의 핵심은 충돌처리이기 때문에 앞으로 수업 이후에 충돌처리에 관해 배우면 좋을 것 같습니다.
 
 ### 개발 내용
-![개발내용](https://user-images.githubusercontent.com/32861131/95718825-ee2f0f80-0ca9-11eb-8636-3cc9e9967248.PNG)
+>![개발내용](https://user-images.githubusercontent.com/32861131/95718825-ee2f0f80-0ca9-11eb-8636-3cc9e9967248.PNG)
 
 ### 개발 일정
-![개발일정](https://user-images.githubusercontent.com/32861131/95718839-f4bd8700-0ca9-11eb-9a05-e6c95091aeff.PNG)
+>![개발일정](https://user-images.githubusercontent.com/32861131/95718839-f4bd8700-0ca9-11eb-9a05-e6c95091aeff.PNG)
