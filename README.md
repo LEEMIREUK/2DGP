@@ -53,4 +53,5 @@
 >![개발내용](https://user-images.githubusercontent.com/32861131/95718825-ee2f0f80-0ca9-11eb-8636-3cc9e9967248.PNG)
 
 ### 개발 일정
->![개발일정](https://user-images.githubusercontent.com/32861131/95718839-f4bd8700-0ca9-11eb-9a05-e6c95091aeff.PNG)
+>![개발일정](https://user-images.githubusercontent.com/32861131/95719363-a9f03f00-0caa-11eb-9181-511f198a6b2f.PNG)
+
