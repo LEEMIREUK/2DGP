@@ -5,6 +5,7 @@ from bullet import LaserBullet
 from score import Score
 import gobj
 import enemy_gen
+import life_gauge
 
 canvas_width = 500
 canvas_height = 800
@@ -22,6 +23,8 @@ def enter():
     global font
     font = gfw.font.load(gobj.RES_DIR + '/segoeprb.ttf', 40)
 
+    life_gauge.load()
+
 def check_enemy(e):
     if gobj.collides_box(player, e):
         print('Player Collision', e)
@@ -30,12 +33,15 @@ def check_enemy(e):
 
     for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
-            # print('Collision', e, b)
-            score.score += e.level * 10
-            e.remove()
+            print('Collision', e, b)
+            dead = e.decrease_life(b.power)
+            if dead:
+                score.score += e.level * 10
+                e.remove()
+            b.remove()
             return
 
-def update()
+def update():
     gfw.world.update()
     enemy_gen.update()
     for e in gfw.world.objects_at(gfw.layer.enemy):
@@ -43,7 +49,7 @@ def update()
 
 def draw():
     gfw.world.draw()
-    # gobj.draw_collision_box()
+    gobj.draw_collision_box()
     font.draw(20, canvas_height - 45, 'Wave: %d' % enemy_gen.wave_index)
 
 def handle_event(e):
