@@ -55,3 +55,30 @@
 ### 개발 일정
 >![개발일정](https://user-images.githubusercontent.com/32861131/95719363-a9f03f00-0caa-11eb-9181-511f198a6b2f.PNG)
 >#####  개발일정은 10월 12일에 시작하는 주를 1주차로 한다.
+-----------------------------------
+### 개발 과정
+>resource information
+>
+>player1 : 23 x 31
+>player1_animation : 161 x 31 - 1frame 23 x 31  (x 7)
+>player1_start_animation : 230 x 117 - 1frame 23 x 117 (x 10) 
+>player1_explosion : 448 x 32 - 1frame  32 x 32 (x 14)
+>player1_select : 240 x 460
+>player1_select_onclick : 240 x 460
+>player1_bullet1 : 45 x 34 - 1frame 15 x 34
+>player1_bullet2 : 45 x 34 - 1frame 50 x 60
+>
+>player2 : 21 x 31
+>player2_animation : 147 x 31 - 1frame 21 x 31 (x 7)
+>player2_start_animation : 231 x 109 - 1frame 21 x 109 (x 11)
+>player2_explosion : 384 x 32 - 1frame 32 x 32 (x 12)
+>player2_select : 240 x 460
+>player2_select_onclick : 240 x 460
+>player2_bullet1 : 45 x 30 - 1frame 15 x 30
+>player2_bullet2 : 45 x 30 - 1frame 50 x 60
+>
+>enemy : 96 x 32 - 1frame 32 x 32 (x 3)
+>enemy : 192 x 32 - 1frame 32 x 32 (x 6)
+>
+>razer_skill : 528 x 869 - 1frame 33 x 122 (x 16)
+>fire_skill : 584 x 122 - 1frame 73 x 122 (x 8)
