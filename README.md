@@ -57,7 +57,7 @@
 >#####  개발일정은 10월 12일에 시작하는 주를 1주차로 한다.
 -----------------------------------
 ### 이미지 리소스 정보
->**resource information**
+>**resource information(pixel)**
 >
 >player1 : 23 x 31  
 >player1_animation : 161 x 31 - 1frame 23 x 31  (x 7)  
