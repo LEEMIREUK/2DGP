@@ -90,4 +90,4 @@
 >fighter_animation1 : 471 x 1290 - 1frame 157 x 86 (x 45)  
 >start_image : 1730 x 142 - 1frame 346 x 142 (x 3)  
 >exit_image : 1265 x 142 - 1frame 253 x 142 (x 5)  
->butoon : 714 x 433 - 1frame 357 x 433 (x 2)  
+>button_image : 30 x 15 - 1frame 15 x 15 (x 2)  
