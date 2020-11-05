@@ -1,6 +1,7 @@
-from pico2d import *
 import gfw
 import gobj
+from pico2d import *
+
 
 canvas_width = 600
 canvas_height = 800
@@ -25,6 +26,7 @@ def enter():
 
 def update():
     gfw.world.update()
+
 
 def draw():
     gfw.world.draw()

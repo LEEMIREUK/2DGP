@@ -30,11 +30,5 @@ def exit():
     global image
     del image
 
-def pause():
-    pass
-
-def resume():
-    pass
-
 if __name__ == '__main__':
     gfw.run_main()

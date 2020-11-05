@@ -5,6 +5,11 @@ import stage1
 effect1_on = False
 effect2_on = False
 
+def point_add(point1, point2):
+    x1,y1 = point1
+    x2,y2 = point2
+    return x1+x2, y1+y2
+
 class MainImage:
     def __init__(self):
         self.image = gfw.image.load('res/main_image.png')
@@ -95,7 +100,7 @@ class Stage1Map:
     def __init__(self):
         self.image = gfw.image.load('res/stage1_map.png')
         self.x, self.y = get_canvas_width() // 2, 3500
-        self.speed = 1
+        self.speed = 30 * gfw.delta_time
 
     def draw(self):
         self.image.draw(self.x, self.y)
