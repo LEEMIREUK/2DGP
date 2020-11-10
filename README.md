@@ -77,7 +77,7 @@
 >player2_bullet1 : 45 x 30 - 1frame 15 x 30  
 >player2_bullet2 : 45 x 30 - 1frame 50 x 60  
 >
->enemy : 96 x 32 - 1frame 32 x 32 (x 3)
+>enemy : 96 x 32 - 1frame 32 x 32 (x 3)  
 >enemy_bullet : 10 x 10  
 >enemy_explosion  : 192 x 32 - 1frame 32 x 32 (x 6)  
 >
