@@ -81,7 +81,7 @@
 >enemy_bullet : 10 x 10  
 >enemy_explosion  : 192 x 32 - 1frame 32 x 32 (x 6)  
 >
->razer_skill : 528 x 869 - 1frame 33 x 122 (x 16)  
+>razer_skill : 528 x 869 - 1frame 33 x 869 (x 16)  
 >fire_skill : 584 x 122 - 1frame 73 x 122 (x 8)  
 >
 >stage1 : 800 x 3700  
