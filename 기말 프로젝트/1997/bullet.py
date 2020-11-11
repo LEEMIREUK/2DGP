@@ -1,5 +1,4 @@
 import gfw
-import gobj
 from pico2d import *
 
 class Bullet:
@@ -10,7 +9,7 @@ class Bullet:
         self.dy = speed
         self.bullet_level = upgrade
         self.image = gfw.image.load('res/player1_bullet1.png')
-        self.damage =10
+        self.damage = 10
 
     def draw(self):
         width, height = 15, 34
@@ -22,6 +21,11 @@ class Bullet:
         self.y += self.dy * gfw.delta_time
         if self.y > get_canvas_height() - 100:
             self.remove()
+
+    def get_bb(self):
+        hw = self.image.w // 2
+        hh = self.image.h // 2
+        return self.x - hw, self.y - hh, self.x + hw, self.y + hh
 
     def remove(self):
         gfw.world.remove(self)

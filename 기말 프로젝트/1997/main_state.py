@@ -31,6 +31,7 @@ def update():
 def draw():
     gfw.world.draw()
 
+
 def handle_event(e):
     global button_image
     button_image.handle_event(e)
@@ -42,8 +43,6 @@ def handle_event(e):
 
 def exit():
     pass
-    # global main_image, start_image, exit_image, button_image
-    # del main_image, start_image, exit_image, button_image
 
 def pause():
     pass
