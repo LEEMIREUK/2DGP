@@ -8,7 +8,7 @@ from enemy import Enemy
 
 def enter():
     global player
-    gfw.world.init(['stage1_map', 'player', 'enemy', 'bullet', 'skill'])
+    gfw.world.init(['stage1_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet'])
 
     stage1_map = gobj.Stage1Map()
     gfw.world.add(gfw.layer.stage1_map, stage1_map)
@@ -32,19 +32,29 @@ def update():
         check_enemy(e)
 
 def check_enemy(e):
+    # 충돌 player with enemy
     if gobj.collides_box(player, e):
         e.explosion()
         player.explosion()
         return
 
+    # 충돌 player bullet with enemy
     for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
         if gobj.collides_box(b, e):
             e.explosion()
             b.remove()
             return
+
+    # 충돌 player skill with enemy
     for s in gfw.gfw.world.objects_at(gfw.layer.skill):
         if gobj.collides_box(s, e):
             e.explosion()
+            return
+
+    # 충돌 player with enemy_bullet
+    for eb in gfw.gfw.world.objects_at(gfw.layer.enemy_bullet):
+        if gobj.collides_box(player, eb):
+            player.explosion()
             return
 
 def draw():

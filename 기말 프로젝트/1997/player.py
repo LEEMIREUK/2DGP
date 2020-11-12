@@ -34,9 +34,15 @@ class Player:
     def __init__(self):
         self.x, self.y = get_canvas_width() // 2, -60
         self.delta = 0, 0
-        self.speed = 200
         self.start_image = gfw.image.load('res/player1_start_animation.png')
         self.image = gfw.image.load('res/player1_animation.png')
+        self.speed = 200
+        self.frame = 0
+        self.time = 0
+        self.roll_time = 0
+        self.play_time = 0
+
+        #image size info
         self.image_size_width = 23
         self.image_size_height = 31
         self.image_rect = Player.IMAGE_RECTS[3]
@@ -45,40 +51,55 @@ class Player:
         self.down_over = self.image_size_height // 2
         self.up_over = get_canvas_height() - (self.image_size_height // 2)
 
-        #animation fidx: 0 ~ 6
-        self.fidx = 0
-        self.time = 0
-        self.roll_time = 0
-        self.play_time = 0
+        # player explosion info
+        self.die = False
+        self.explosion_image = gfw.image.load('res/player1_explosion.png')
+        self.explosion_frame = 0
+        self.explosion_time = 0
 
     def fire(self):
         bullet = Bullet(self.x, self.y + self.image_size_height // 2, 200, 1)
-        Bullet.bullets.append(bullet)
+        gfw.world.add(gfw.layer.bullet, bullet)
 
     def skill(self):
         skill = Skill(self.x, self.y)
-        Skill.skills.append(skill)
+        gfw.world.add(gfw.layer.skill, skill)
+
+    def explosion(self):
+        self.die = True
 
     def draw(self):
         width, height = 23, 31
-        sx = self.fidx * width
-        if not effect:
-            self.start_image.clip_draw(sx, 0, width, 117, self.x, self.y)
+        exp_width, exp_height = 32, 32
+        ex = self.explosion_frame * exp_width
+        sx = self.frame * width
+        if not self.die:
+            if not effect:
+                self.start_image.clip_draw(sx, 0, width, 117, self.x, self.y)
+            else:
+                self.image.clip_draw(*self.image_rect, self.x, self.y)
         else:
-            self.image.clip_draw(*self.image_rect, self.x, self.y)
+            self.explosion_image.clip_draw(ex, 0, exp_width, exp_height, self.x, self.y)
 
     def update(self):
         self.play_time += gfw.delta_time
 
-        if not effect:
-            Player.start_motion(self)
+        if not self.die:
+            if not effect:
+                Player.start_motion(self)
+            else:
+                dx, dy = self.delta
+                self.x += dx * self.speed * gfw.delta_time
+                self.y += dy * self.speed * gfw.delta_time
+                self.x = clamp(self.left_over, self.x, self.right_over)
+                self.y = clamp(self.down_over, self.y, self.up_over)
+                self.update_roll()
         else:
-            dx, dy = self.delta
-            self.x += dx * self.speed * gfw.delta_time
-            self.y += dy * self.speed * gfw.delta_time
-            self.x = clamp(self.left_over, self.x, self.right_over)
-            self.y = clamp(self.down_over, self.y, self.up_over)
-            self.update_roll()
+            self.explosion_time += 1
+            if self.explosion_time % 5:
+                self.explosion_frame += 1
+                if self.explosion_time == 14:
+                    Player.remove(self)
 
     def update_roll(self):
         dx = self.delta[0]
@@ -115,17 +136,19 @@ class Player:
         self.y += 1
         self.time += 1
         if self.time % 15 == 1:
-            self.fidx += 1
+            self.frame += 1
 
-        if self.fidx == 9:
-            self.fidx = 3
+        if self.frame == 9:
+            self.frame = 3
             self.y += 43
             effect = True
 
     def get_bb(self):
         hw = self.image_rect[2] / 2
         hh = self.image_rect[3] / 2
-        return self.x - hw, self.y -hh, self.x + hw, self.y + hh
+        return self.x - hw, self.y - hh, self.x + hw, self.y + hh
 
     def remove(self):
         gfw.world.remove(self)
+        #####
+        # 게임 오버

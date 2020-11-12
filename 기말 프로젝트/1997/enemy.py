@@ -1,25 +1,31 @@
 import gfw
 import random
 from pico2d import *
+from bullet import EnemyBullet
 
 class Enemy:
     SIZE = 32
+    SHOOTING_INTERVAL = 1
     def __init__(self):
         self.pos = (
             random.randint(-100, get_canvas_width() + 100),
             random.randint(get_canvas_height(), get_canvas_height() + 100)
         )
-        self.x = get_canvas_width() // 2
-        self.y = get_canvas_height() // 2
         self.delta = 0, 0
         self.image = gfw.image.load('res/enemy.png')
+        self.fidx = 0
+        self.player = gfw.world.object(gfw.layer.player, 0)
+
+        # enemy remove info
+        self.die = False
         self.explosion_image = gfw.image.load('res/enemy_explosion.png')
         self.explosion_fidx = 0
         self.explosion_time = 0
-        self.fidx = 0
-        self.player = gfw.world.object(gfw.layer.player, 0)
-        self.destination = 0, 0
-        self.die = False
+
+        # enemy 총알 발사 info
+        self.shoot_time = 0
+
+        # enemy의 생성 속도 info
         self.time = self.player.play_time
         if self.time >= 0 and  self.time < 20:
             self.speed = random.randint(40, 60)
@@ -30,6 +36,12 @@ class Enemy:
 
     def explosion(self):
         self.die = True
+
+    def fire(self):
+        des = self.player.x, self.player.y
+        self.shoot_time = 0
+        enemy_bullet = EnemyBullet(self.pos, des)
+        gfw.world.add(gfw.layer.enemy_bullet, enemy_bullet)
 
     def draw(self):
         width, height = 32, 32
@@ -61,6 +73,10 @@ class Enemy:
                 self.explosion_fidx += 1
                 if self.explosion_fidx == 6:
                     Enemy.remove(self)
+
+        self.shoot_time += gfw.delta_time
+        if self.shoot_time >= Enemy.SHOOTING_INTERVAL:
+            self.fire()
 
     def set_target(self, target):
         x, y = self.pos
