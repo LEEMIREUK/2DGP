@@ -33,7 +33,7 @@
 >+ GameState
 >   + 본격적으로 게임 플레이를 보여주는 화면입니다.
 >   + 객체 목록: Player, Enemy, Bullet(Player, Enemy), Item 등
->   + Event를 통해 Player는 ↑ ↓ ← → 키로 이동이 가능하며 space_bar 키로 총알을 쏠수 있습니다.
+>   + Event를 통해 Player는 ↑ ↓ ← → 키로 이동이 가능하며 Left_ctrl 키로 총알을 발사할 수 있고 Left_shift 키로 스킬을 사용할 수 있습니다.  
 >   + Enemy는 랜덤으로 생성되며 움직이는 패턴을 구현합니다. 적의 이동을 예측할 수 없도록 움직임을 구현합니다.
 >   + Item은 일정 시간이 지나면 필드에 나타나며 먹으면 Player에게 좋은 효과를 줍니다.
 >   + ESC 키를 눌러 Option 창으로 push_state 됩니다.
@@ -91,3 +91,4 @@
 >start_image : 1730 x 142 - 1frame 346 x 142 (x 3)  
 >exit_image : 1265 x 142 - 1frame 253 x 142 (x 5)  
 >button_image : 30 x 15 - 1frame 15 x 15 (x 2)  
+>item_image : 120 x 13 - 1frame 20 x 13 (x 6)  
