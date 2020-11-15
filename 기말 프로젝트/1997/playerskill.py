@@ -1,10 +1,10 @@
 import gfw
 from pico2d import *
 
-class Skill:
+class PlayerSkill:
     skills = []
     def __init__(self, x, y):
-        self.x, self.y = x, y + get_canvas_height() // 2
+        self.x, self.y = x, y + get_canvas_height() // 2 + 50
         self.image = gfw.image.load('res/razer_skill.png')
         self.damage = 100
         self.fidx = 0
@@ -21,7 +21,7 @@ class Skill:
         if self.time % 5 == 1:
             self.fidx += 1
             if self.fidx == 16:
-                Skill.remove(self)
+                PlayerSkill.remove(self)
 
     def get_bb(self):
         hw = self.width // 2

@@ -1,8 +1,8 @@
 import gfw
-import gobj
+import collision
 from pico2d import *
-from bullet import Bullet
-from skill import Skill
+from playerbullet import PlayerBullet
+from playerskill import PlayerSkill
 
 effect = False
 
@@ -40,7 +40,6 @@ class Player:
         self.frame = 0
         self.time = 0
         self.roll_time = 0
-        self.play_time = 0
 
         #image size info
         self.image_size_width = 23
@@ -58,11 +57,11 @@ class Player:
         self.explosion_time = 0
 
     def fire(self):
-        bullet = Bullet(self.x, self.y + self.image_size_height // 2, 200, 1)
+        bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2, 200, 1)
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def skill(self):
-        skill = Skill(self.x, self.y)
+        skill = PlayerSkill(self.x, self.y)
         gfw.world.add(gfw.layer.skill, skill)
 
     def explosion(self):
@@ -82,8 +81,6 @@ class Player:
             self.explosion_image.clip_draw(ex, 0, exp_width, exp_height, self.x, self.y)
 
     def update(self):
-        self.play_time += gfw.delta_time
-
         if not self.die:
             if not effect:
                 Player.start_motion(self)
@@ -123,7 +120,7 @@ class Player:
     def handle_event(self, e):
         pair = (e.type, e.key)
         if pair in Player.KEY_MAP:
-            self.delta = gobj.point_add(self.delta, Player.KEY_MAP[pair])
+            self.delta = collision.point_add(self.delta, Player.KEY_MAP[pair])
         if pair == Player.KEYDOWN_LCTRL:
             if effect:
                 Player.fire(self)

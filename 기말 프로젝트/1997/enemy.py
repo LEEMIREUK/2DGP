@@ -1,11 +1,11 @@
 import gfw
 import random
+import stage1
 from pico2d import *
-from bullet import EnemyBullet
+from enemybullet import EnemyBullet
 
 class Enemy:
     SIZE = 32
-    SHOOTING_INTERVAL = 1
     def __init__(self):
         self.pos = (
             random.randint(-100, get_canvas_width() + 100),
@@ -24,15 +24,21 @@ class Enemy:
 
         # enemy 총알 발사 info
         self.shoot_time = 0
+        self.shooting_interval = 0
 
-        # enemy의 생성 속도 info
-        self.time = self.player.play_time
-        if self.time >= 0 and  self.time < 20:
+        # enemy 난이도 정보
+        self.time = stage1.get_playertime()
+        if self.time >= 0 and self.time < 20:
             self.speed = random.randint(40, 60)
+            self.shooting_interval = 2
         elif self.time >= 20 and self.time < 40:
-            self.speed = random.randint(60, 140)
-        elif self.time >= 40:
-            self.speed = random.randint(140, 200)
+            self.speed = random.randint(60, 120)
+            self.shooting_interval = 1.5
+        else:
+            self.speed = random.randint(200, 240)
+            self.shooting_interval = 1
+
+        Enemy.set_target(self, (self.player.x, self.player.y))
 
     def explosion(self):
         self.die = True
@@ -56,17 +62,13 @@ class Enemy:
     def update(self):
         if not self.die:
             self.fidx = (self.fidx + 1) % 3
-            Enemy.set_target(self, (self.player.x, self.player.y))
-            x,y = self.pos
-            dx,dy = self.delta
+            x, y = self.pos
+            dx, dy = self.delta
             x += dx * self.speed * gfw.delta_time
             y += dy * self.speed * gfw.delta_time
-            tx,ty = self.target
-            if dx > 0 and x >= tx or dx < 0 and x <= tx:
-                x = tx
-            if dy > 0 and y >= ty or y < 0 and y <= ty:
-                y = ty
-            self.pos = x,y
+            if y < -(Enemy.SIZE // 2):
+                Enemy.remove(self)
+            self.pos = x, y
         else:
             self.explosion_time += 1
             if self.explosion_time % 5 == 1:
@@ -74,8 +76,9 @@ class Enemy:
                 if self.explosion_fidx == 6:
                     Enemy.remove(self)
 
+        # enemy shooting
         self.shoot_time += gfw.delta_time
-        if self.shoot_time >= Enemy.SHOOTING_INTERVAL:
+        if self.shoot_time >= self.shooting_interval:
             self.fire()
 
     def set_target(self, target):
@@ -85,7 +88,6 @@ class Enemy:
         distance = math.sqrt(dx ** 2 + dy ** 2)
         if distance == 0: return
 
-        self.target = target
         self.delta = dx / distance, dy / distance
 
     def get_bb(self):
