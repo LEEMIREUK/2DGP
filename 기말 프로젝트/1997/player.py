@@ -56,8 +56,12 @@ class Player:
         self.explosion_frame = 0
         self.explosion_time = 0
 
+        # player bullet info
+        self.shoot_speed = 200
+        self.upgrade = 1
+
     def fire(self):
-        bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2, 200, 1)
+        bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2, self.shoot_speed, self.upgrade)
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def skill(self):

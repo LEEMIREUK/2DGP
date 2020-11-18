@@ -1,15 +1,25 @@
 import gfw
+import stage1
+import random
 from pico2d import *
 
 class EnemyBullet:
     def __init__(self, departure, destination):
         self.pos = departure
         self.des = destination
-        self.speed = 100
         self.delta = 0, 0
         self.width = 10
         self.height = 10
         self.image = gfw.image.load('res/enemy_bullet.png')
+
+        self.time = stage1.get_playertime()
+        if self.time >= 0 and self.time < 20:
+            self.speed = random.randint(150, 200)
+        elif self.time >= 20 and self.time < 40:
+            self.speed = random.randint(200, 250)
+        else:
+            self.speed = random.randint(250, 300)
+
         EnemyBullet.set_target(self, self.des)
 
     def draw(self):

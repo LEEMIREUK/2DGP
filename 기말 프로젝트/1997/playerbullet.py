@@ -7,13 +7,17 @@ class PlayerBullet:
         self.dy = speed
         self.bullet_level = upgrade
         self.image = gfw.image.load('res/player1_bullet1.png')
+        self.upgrade_image = gfw.image.load('res/player1_bullet2.png')
         self.damage = 10
         self. width, self.height = 15, 34
+        self.upgrade_width, self.upgrade_height = 50, 60
 
     def draw(self):
-        sx = (self.bullet_level - 1) * self.width
-        if self.bullet_level == 1:
-            self.image.clip_draw(sx, 0, self.width, self.height, self.x, self.y)
+        width = self.width * self.bullet_level
+        if self.bullet_level < 4:
+            self.image.clip_draw(0, 0, width, self.height, self.x, self.y)
+        else:
+            self.upgrade_image.clip_draw(0, 0, self.upgrade_width, self.upgrade_height, self.x, self.y)
 
     def update(self):
         self.y += self.dy * gfw.delta_time
@@ -21,8 +25,13 @@ class PlayerBullet:
             self.remove()
 
     def get_bb(self):
-        hw = self.width // 2
-        hh = self.height // 2
+        if self.bullet_level < 4:
+            hw = self.width // 2 * self.bullet_level
+            hh = self.height // 2
+        else:
+            hw = self.upgrade_width // 2
+            hh = self.upgrade_height // 2
+
         return self.x - hw, self.y - hh, self.x + hw, self.y + hh
 
     def remove(self):

@@ -13,7 +13,7 @@ class Enemy:
         )
         self.delta = 0, 0
         self.image = gfw.image.load('res/enemy.png')
-        self.fidx = 0
+        self.frame = 0
         self.player = gfw.world.object(gfw.layer.player, 0)
 
         # enemy remove info
@@ -29,13 +29,13 @@ class Enemy:
         # enemy 난이도 정보
         self.time = stage1.get_playertime()
         if self.time >= 0 and self.time < 20:
-            self.speed = random.randint(40, 60)
+            self.speed = random.randint(80, 100)
             self.shooting_interval = 2
         elif self.time >= 20 and self.time < 40:
-            self.speed = random.randint(60, 120)
+            self.speed = random.randint(100, 150)
             self.shooting_interval = 1.5
         else:
-            self.speed = random.randint(200, 240)
+            self.speed = random.randint(150, 200)
             self.shooting_interval = 1
 
         Enemy.set_target(self, (self.player.x, self.player.y))
@@ -53,7 +53,7 @@ class Enemy:
         width, height = 32, 32
         exp_width, exp_height = 32, 32
         ex = self.explosion_fidx * exp_width
-        sx = self.fidx * width
+        sx = self.frame * width
         if not self.die:
             self.image.clip_draw(sx, 0, width, height, *self.pos)
         else:
@@ -61,7 +61,7 @@ class Enemy:
 
     def update(self):
         if not self.die:
-            self.fidx = (self.fidx + 1) % 3
+            self.frame = (self.frame + 1) % 3
             x, y = self.pos
             dx, dy = self.delta
             x += dx * self.speed * gfw.delta_time
