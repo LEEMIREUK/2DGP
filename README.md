@@ -94,3 +94,27 @@
 >exit_image : 1265 x 142 - 1frame 253 x 142 (x 5)  
 >button_image : 30 x 15 - 1frame 15 x 15 (x 2)  
 >item_image : 120 x 13 - 1frame 20 x 13 (x 6)  
+-----------------------------------
+### 중간 발표 자료
+>진행상황
+>![진행상황](https://user-images.githubusercontent.com/32861131/99875908-7358fd00-2c36-11eb-9110-220a64274470.PNG)
+>git commit 횟수
+>![커밋횟수](https://user-images.githubusercontent.com/32861131/99875902-6dfbb280-2c36-11eb-9ed6-3c551dab385b.PNG)
+>변경내용
+>![변경내용](https://user-images.githubusercontent.com/32861131/99875906-718f3980-2c36-11eb-95de-6b05fd9a104c.PNG)
+>상호작용
+>![상호작용](https://user-images.githubusercontent.com/32861131/99875911-7653ed80-2c36-11eb-9283-94a64c7c7565.PNG)
+>class 구성
+>![class 구성](https://user-images.githubusercontent.com/32861131/99875910-748a2a00-2c36-11eb-9881-5f6e430be717.PNG)
+>가장 중요한 클래스
+>```
+>class Player:
+>class Enemy:
+>```
+>플레이어 클래스에는 def init, def draw, def update, def fire, def skill, def explosion 함수가 있습니다.   
+>이 클래스는 stage.py에서 생성됩니다.   
+>
+>적군 클래스에는 def init, def draw, def update, def fire, def explosion 함수가 있습니다.   
+>이 클래스는 stage.py에서 일정 시간마다 생성됩니다.   
+>적군은 생성되는 순간 플레이어의 위치값을 받아와 그 위치를 향해 움직입니다.   
+>적군은 일정 간격으로 총알을 발사하며 그 순간의 플레이어의 위치값을 받아와 그 위치를 향해 총알을 발사합니다.   
