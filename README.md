@@ -67,6 +67,7 @@
 >player1_select_onclick : 240 x 460  
 >player1_bullet1 : 45 x 34 - 1frame 15 x 34  
 >player1_bullet2 : 45 x 34 - 1frame 50 x 60  
+>player1_loading : 224 x 320  
 >
 >player2 : 21 x 31  
 >player2_animation : 147 x 31 - 1frame 21 x 31 (x 7)  
@@ -76,6 +77,7 @@
 >player2_select_onclick : 240 x 460  
 >player2_bullet1 : 45 x 30 - 1frame 15 x 30  
 >player2_bullet2 : 45 x 30 - 1frame 50 x 60  
+>player2_loading : 224 x 321  
 >
 >enemy : 96 x 32 - 1frame 32 x 32 (x 3)  
 >enemy_bullet : 10 x 10  
@@ -84,7 +86,7 @@
 >razer_skill : 528 x 869 - 1frame 33 x 869 (x 16)  
 >fire_skill : 584 x 122 - 1frame 73 x 122 (x 8)  
 >
->stage1 : 800 x 3700  
+>stage_map : 800 x 7000  
 >title : 300 x 300  
 >main_image : 4480 x 320 - 1frame 224 x 320 (x 20)  
 >fighter_animation1 : 471 x 1290 - 1frame 157 x 86 (x 45)  
