@@ -3,22 +3,22 @@ import gfw
 import main_state
 
 canvas_width = 600
-canvas_height = 600
+canvas_height = 800
 
 def enter():
-    global image, elapsed
-    image = load_image('res/title.png')
+    global logo, elapsed
+    logo = gfw.image.load('res/title.png')
     elapsed = 0
 
 def update():
     global elapsed
     elapsed += gfw.delta_time
     if elapsed > 1.0:
-        close_canvas()
         gfw.change(main_state)
 
+
 def draw():
-    image.draw(get_canvas_width() // 2, get_canvas_height() // 2, 600, 600)
+    logo.draw(get_canvas_width() // 2, get_canvas_height() // 2, 600, 800)
 
 def handle_event(e):
     if e.type == SDL_QUIT:
@@ -27,8 +27,9 @@ def handle_event(e):
         gfw.quit()
 
 def exit():
-    global image
-    del image
+    global logo
+    gfw.image.unload('res/title.png')
+    del logo
 
 if __name__ == '__main__':
     gfw.run_main()

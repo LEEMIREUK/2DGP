@@ -1,6 +1,7 @@
 import gfw
 import gobj
 import collision
+import main_state
 from pico2d import *
 from player import Player
 from enemy import Enemy
@@ -8,10 +9,10 @@ from item import Item
 
 def enter():
     global player
-    gfw.world.init(['stage1_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet', 'item'])
+    gfw.world.init(['stage_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet', 'item'])
 
-    stage1_map = gobj.Stage1Map()
-    gfw.world.add(gfw.layer.stage1_map, stage1_map)
+    stage_map = gobj.StageMap('stage_map.png')
+    gfw.world.add(gfw.layer.stage_map, stage_map)
 
     player = Player()
     gfw.world.add(gfw.layer.player, player)
@@ -22,70 +23,80 @@ def enter():
     global item_gen_time
     item_gen_time = 1
 
-    global stage1_playtime
-    stage1_playtime = 0
+    global stage_playtime
+    stage_playtime = 0
 
 def update():
     gfw.world.update()
 
     # stage1 playetime
-    global stage1_playtime
-    stage1_playtime += gfw.delta_time
+    global stage_playtime
+    stage_playtime += gfw.delta_time
 
     # enemy 생성 시간
     global enemy_time
     enemy_time -= gfw.delta_time
     if enemy_time <= 0:
         gfw.world.add(gfw.layer.enemy, Enemy())
-        if stage1_playtime >= 0 and stage1_playtime < 20:
+        if stage_playtime >= 0 and stage_playtime < 20:
             enemy_time = 2
-        elif stage1_playtime >= 20 and stage1_playtime < 40:
+        elif stage_playtime >= 20 and stage_playtime < 40:
             enemy_time = 1.5
         else:
             enemy_time = 1
 
     for e in gfw.world.objects_at(gfw.layer.enemy):
-        check_enemy(e)
+        check_collision_enemy(e)
 
-    for eb in gfw.gfw.world.objects_at(gfw.layer.enemy_bullet):
-        check_enemy_bullet(eb)
+    for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
+        check_collision_enemybullet(eb)
+
+    for s in gfw.world.objects_at(gfw.layer.skill):
+        check_collision_playerskill(s)
 
     global item_gen_time
     item_gen_time -= gfw.delta_time
     if item_gen_time <= 0:
         gfw.world.add(gfw.layer.item, Item())
         item_gen_time = 15
-    check_item()
+    check_collision_item()
 
-def check_enemy(e):
-    # 충돌 player with enemy
+def check_collision_enemy(e):
+    # 충돌 enemy with player
     if collision.collides_box(player, e):
         e.explosion()
         player.explosion()
         return
 
-    # 충돌 player bullet with enemy
-    for b in gfw.gfw.world.objects_at(gfw.layer.bullet):
+    # 충돌 enemy with player bullet
+    for b in gfw.world.objects_at(gfw.layer.bullet):
         if collision.collides_box(b, e):
             e.explosion()
             b.remove()
             return
 
-    # 충돌 player skill with enemy
-    for s in gfw.gfw.world.objects_at(gfw.layer.skill):
-        if collision.collides_box(s, e):
-            e.explosion()
-            return
-
-def check_enemy_bullet(eb):
-    # 충돌 player with enemy_bullet
+def check_collision_enemybullet(eb):
+    # 충돌 enemy_bullet with player
     if collision.collides_box(player, eb):
         player.explosion()
         return
 
-def check_item():
+def check_collision_playerskill(s):
+    # 충돌 player skill with enemy
+    for e in gfw.gfw.world.objects_at(gfw.layer.enemy):
+        if collision.collides_box(s, e):
+            e.explosion()
+            return
+
+    # 충돌 player skill with enemy_bullet
+    for eb in gfw.gfw.world.objects_at(gfw.layer.enemy_bullet):
+        if collision.collides_box(s, eb):
+            eb.remove()
+            return
+
+def check_collision_item():
     # 충돌 player with item
-    for i in gfw.gfw.world.objects_at(gfw.layer.item):
+    for i in gfw.world.objects_at(gfw.layer.item):
         if collision.collides_box(player, i):
             if player.upgrade < 4:
                 player.upgrade += 1
@@ -96,21 +107,18 @@ def draw():
     gfw.world.draw()
     collision.draw_collision_box()
 
-    for e in gfw.world.objects_at(gfw.layer.enemy):
-        check_enemy(e)
-
 def handle_event(e):
     global player
     if e.type == SDL_QUIT:
         gfw.quit()
     elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-        gfw.pop()
+        gfw.change(main_state)
 
     player.handle_event(e)
 
 def get_playertime():
-    global stage1_playtime
-    return stage1_playtime
+    global stage_playtime
+    return stage_playtime
 
 def exit():
     pass

@@ -1,13 +1,13 @@
 from pico2d import *
 import gfw
-import stage1
+import main_state
 
 effect1_on = False
 effect2_on = False
 
 class MainImage:
-    def __init__(self):
-        self.image = gfw.image.load('res/main_image.png')
+    def __init__(self, image):
+        self.image = gfw.image.load('res/' + image)
         self.pos = (get_canvas_width() // 2, get_canvas_height() // 2)
         self.fidx = 0
 
@@ -20,8 +20,8 @@ class MainImage:
         self.fidx = (self.fidx + 1) % 20
 
 class StartImage:
-    def __init__(self):
-        self.image = gfw.image.load('res/start_image.png')
+    def __init__(self, image):
+        self.image = gfw.image.load('res/' + image)
         self.pos = (get_canvas_width() // 2, 300)
         self.fidx = 0
         self.time =0
@@ -32,15 +32,16 @@ class StartImage:
         self.image.clip_draw(sx, 0, width, height, *self.pos, 150, 75)
 
     def update(self):
+        global loading_on
         if effect1_on:
             if self.fidx < 4:
                 self.fidx += 1
             elif self.fidx == 4:
-                gfw.change(stage1)
+                main_state.loading_on = True
 
 class ExitImage:
-    def __init__(self):
-        self.image = gfw.image.load('res/exit_image.png')
+    def __init__(self, image):
+        self.image = gfw.image.load('res/' + image)
         self.pos = (get_canvas_width() // 2, 200)
         self.fidx = 0
         self.time = 0
@@ -56,8 +57,8 @@ class ExitImage:
                 self.fidx += 1
 
 class ButtonImage:
-    def __init__(self):
-        self.image = gfw.image.load('res/button_image.png')
+    def __init__(self, image):
+        self.image = gfw.image.load('res/' + image)
         self.x, self.y = 175, 300
         self.fidx = 0
         self.time = 0
@@ -72,28 +73,15 @@ class ButtonImage:
         if self.time % 30 == 1:
             self.fidx = (self.fidx + 1) % 2
 
-    def handle_event(self, e):
-        global effect1_on, effect2_on
-        if (e.type, e.key) == (SDL_KEYDOWN, SDLK_UP):
-            if self.y == 300:
-                self.y = 200
-            elif self.y == 200:
-                self.y = 300
-        elif (e.type, e.key) == (SDL_KEYDOWN, SDLK_DOWN):
-            if self.y == 200:
-                self.y = 300
-            elif self.y == 300:
-                self.y = 200
-        if (e.type, e.key) == (SDL_KEYDOWN, SDLK_SPACE):
-            if self.y == 300:
-                effect1_on = True
-            elif self.y == 200:
-                effect2_on = True
-                gfw.quit()
+    def set_y(self, y):
+        self.y = y
 
-class Stage1Map:
-    def __init__(self):
-        self.image = gfw.image.load('res/stage1_map.png')
+    def get_y(self):
+        return self.y
+
+class StageMap:
+    def __init__(self, image):
+        self.image = gfw.image.load('res/' + image)
         self.x, self.y = get_canvas_width() // 2, 3500
         self.speed = 30 * gfw.delta_time
 

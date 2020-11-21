@@ -1,5 +1,6 @@
 import gfw
 import collision
+import main_state
 from pico2d import *
 from playerbullet import PlayerBullet
 from playerskill import PlayerSkill
@@ -61,7 +62,8 @@ class Player:
         self.upgrade = 1
 
     def fire(self):
-        bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2, self.shoot_speed, self.upgrade)
+        bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2,
+                              self.shoot_speed, self.upgrade)
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def skill(self):
@@ -151,5 +153,4 @@ class Player:
 
     def remove(self):
         gfw.world.remove(self)
-        #####
         # 게임 오버

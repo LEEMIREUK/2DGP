@@ -1,5 +1,5 @@
 import gfw
-import stage1
+import stage
 import random
 from pico2d import *
 
@@ -12,7 +12,7 @@ class EnemyBullet:
         self.height = 10
         self.image = gfw.image.load('res/enemy_bullet.png')
 
-        self.time = stage1.get_playertime()
+        self.time = stage.get_playertime()
         if self.time >= 0 and self.time < 20:
             self.speed = random.randint(150, 200)
         elif self.time >= 20 and self.time < 40:

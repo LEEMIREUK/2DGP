@@ -1,6 +1,6 @@
 import gfw
 import random
-import stage1
+import stage
 from pico2d import *
 from enemybullet import EnemyBullet
 
@@ -27,7 +27,7 @@ class Enemy:
         self.shooting_interval = 0
 
         # enemy 난이도 정보
-        self.time = stage1.get_playertime()
+        self.time = stage.get_playertime()
         if self.time >= 0 and self.time < 20:
             self.speed = random.randint(80, 100)
             self.shooting_interval = 2
