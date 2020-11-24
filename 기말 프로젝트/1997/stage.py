@@ -8,12 +8,12 @@ from enemy import Enemy
 from item import Item
 
 def enter():
-    global player
     gfw.world.init(['stage_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet', 'item'])
 
     stage_map = gobj.StageMap('stage_map.png')
     gfw.world.add(gfw.layer.stage_map, stage_map)
 
+    global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
 
@@ -56,17 +56,21 @@ def update():
 
     global item_gen_time
     item_gen_time -= gfw.delta_time
+
     if item_gen_time <= 0:
         gfw.world.add(gfw.layer.item, Item())
         item_gen_time = 15
+
     check_collision_item()
 
 def check_collision_enemy(e):
     # 충돌 enemy with player
-    if collision.collides_box(player, e):
-        e.explosion()
-        player.explosion()
-        return
+    global player
+    if not player.returninfo():
+        if collision.collides_box(player, e):
+            e.explosion()
+            player.explosion()
+            return
 
     # 충돌 enemy with player bullet
     for b in gfw.world.objects_at(gfw.layer.bullet):
@@ -77,9 +81,11 @@ def check_collision_enemy(e):
 
 def check_collision_enemybullet(eb):
     # 충돌 enemy_bullet with player
-    if collision.collides_box(player, eb):
-        player.explosion()
-        return
+    global player
+    if not player.returninfo():
+        if collision.collides_box(player, eb):
+            player.explosion()
+            return
 
 def check_collision_playerskill(s):
     # 충돌 player skill with enemy
