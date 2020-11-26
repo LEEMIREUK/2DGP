@@ -6,9 +6,10 @@ from pico2d import *
 from player import Player
 from enemy import Enemy
 from item import Item
+from boss import Boss
 
 def enter():
-    gfw.world.init(['stage_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet', 'item'])
+    gfw.world.init(['stage_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet', 'item', 'boss'])
 
     stage_map = gobj.StageMap('stage_map.png')
     gfw.world.add(gfw.layer.stage_map, stage_map)
@@ -16,6 +17,9 @@ def enter():
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
+
+    boss = Boss()
+    gfw.world.add(gfw.layer.boss, boss)
 
     global enemy_time
     enemy_time = 2
