@@ -94,6 +94,9 @@
 >exit_image : 1265 x 142 - 1frame 253 x 142 (x 5)  
 >button_image : 30 x 15 - 1frame 15 x 15 (x 2)  
 >item_image : 120 x 13 - 1frame 20 x 13 (x 6)  
+
+>boss : 159 x 96   
+>boss_bullet : 8 x 8   
 -----------------------------------
 ### 중간 발표 자료
 >### [진행상황]   
