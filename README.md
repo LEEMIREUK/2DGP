@@ -82,26 +82,21 @@
 >enemy : 96 x 32 - 1frame 32 x 32 (x 3)  
 >enemy_bullet : 10 x 10  
 >enemy_explosion  : 192 x 32 - 1frame 32 x 32 (x 6)  
->
+>   
 >razer_skill : 528 x 869 - 1frame 33 x 869 (x 16)  
 >fire_skill : 584 x 122 - 1frame 73 x 122 (x 8)  
->
+>   
 >stage_map : 800 x 7000  
 >title : 300 x 300  
 >main_image : 4480 x 320 - 1frame 224 x 320 (x 20)  
->fighter_animation1 : 471 x 1290 - 1frame 157 x 86 (x 45)  
->start_image : 1730 x 142 - 1frame 346 x 142 (x 3)  
->exit_image : 1265 x 142 - 1frame 253 x 142 (x 5)  
+>fighter_animation1 : 471 x 1290 - 1frame 157 x 86 (x 45)   
+>start_image : 1730 x 142 - 1frame 346 x 142 (x 3)   
+>exit_image : 1265 x 142 - 1frame 253 x 142 (x 5)   
 >button_image : 30 x 15 - 1frame 15 x 15 (x 2)  
 >item_image : 120 x 13 - 1frame 20 x 13 (x 6)  
-
+>   
 >boss : 159 x 96   
 >boss_bullet : 8 x 8   
-
->loading1 : 960 x 104 - 1frame 240 x 104 (x 4)    
->loading2 : 984 x 104 - 1frame 123 x 104 (x 8)    
->loading3 : 960 x 104 - 1frame 240 x 104 (x 4)    
->loading4 : 960 x 104 - 1frame 240 x 104 (x 4)    
 -----------------------------------
 ### 중간 발표 자료
 >### [진행상황]   
