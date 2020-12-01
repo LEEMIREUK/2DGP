@@ -97,6 +97,11 @@
 
 >boss : 159 x 96   
 >boss_bullet : 8 x 8   
+
+>loading1 : 960 x 104 - 1frame 240 x 104 (x 4)    
+>loading2 : 984 x 104 - 1frame 123 x 104 (x 8)    
+>loading3 : 960 x 104 - 1frame 240 x 104 (x 4)    
+>loading4 : 960 x 104 - 1frame 240 x 104 (x 4)    
 -----------------------------------
 ### 중간 발표 자료
 >### [진행상황]   
