@@ -4,6 +4,7 @@ import random
 from pico2d import *
 
 class EnemyBullet:
+    SIZE = 10
     def __init__(self, departure, destination):
         self.pos = departure
         self.des = destination
@@ -47,9 +48,8 @@ class EnemyBullet:
 
     def get_bb(self):
         x, y = self.pos
-        hw = self.width // 2
-        hh = self.height // 2
-        return x - hw, y - hh, x + hw, y + hh
+        h = EnemyBullet.SIZE // 2
+        return x - h, y - h, x + h, y + h
 
     def remove(self):
         gfw.world.remove(self)

@@ -7,9 +7,12 @@ from player import Player
 from enemy import Enemy
 from item import Item
 from boss import Boss
+from bossbullet import BossBullet
 
 def enter():
-    gfw.world.init(['stage_map', 'player', 'bullet', 'skill', 'enemy', 'enemy_bullet', 'item', 'boss'])
+    gfw.world.init(['stage_map', 'player', 'bullet', 'skill',
+                    'enemy', 'enemy_bullet', 'item',
+                    'boss', 'boss_bullet'])
 
     stage_map = gobj.StageMap('stage_map.png')
     gfw.world.add(gfw.layer.stage_map, stage_map)
@@ -17,9 +20,6 @@ def enter():
     global player
     player = Player()
     gfw.world.add(gfw.layer.player, player)
-
-    boss = Boss()
-    gfw.world.add(gfw.layer.boss, boss)
 
     global enemy_time
     enemy_time = 2
@@ -37,17 +37,22 @@ def update():
     global stage_playtime
     stage_playtime += gfw.delta_time
 
-    # enemy 생성 시간
-    global enemy_time
-    enemy_time -= gfw.delta_time
-    if enemy_time <= 0:
-        gfw.world.add(gfw.layer.enemy, Enemy())
-        if stage_playtime >= 0 and stage_playtime < 20:
-            enemy_time = 2
-        elif stage_playtime >= 20 and stage_playtime < 40:
-            enemy_time = 1.5
-        else:
-            enemy_time = 1
+    if stage_playtime > 1:
+        if gfw.world.count_at(gfw.layer.boss) == 0:
+            gfw.world.add(gfw.layer.boss, Boss())
+
+    else:
+        # enemy 생성 시간
+        global enemy_time
+        enemy_time -= gfw.delta_time
+        if enemy_time <= 0:
+            gfw.world.add(gfw.layer.enemy, Enemy())
+            if stage_playtime >= 0 and stage_playtime < 20:
+                enemy_time = 2
+            elif stage_playtime >= 20 and stage_playtime < 40:
+                enemy_time = 1.5
+            else:
+                enemy_time = 1
 
     for e in gfw.world.objects_at(gfw.layer.enemy):
         check_collision_enemy(e)
@@ -58,6 +63,7 @@ def update():
     for s in gfw.world.objects_at(gfw.layer.skill):
         check_collision_playerskill(s)
 
+    # Item 생성
     global item_gen_time
     item_gen_time -= gfw.delta_time
 
@@ -112,6 +118,9 @@ def check_collision_item():
                 player.upgrade += 1
             i.remove()
             return
+
+def check_collision_boss():
+    pass
 
 def draw():
     gfw.world.draw()
