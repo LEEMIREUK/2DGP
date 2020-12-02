@@ -1,6 +1,4 @@
 import gfw
-import stage
-import random
 from pico2d import *
 
 class BossBullet:
@@ -44,5 +42,4 @@ class BossBullet:
         return x - h, y - h, x + h, y + h
 
     def remove(self):
-        stage.score += 500
         gfw.world.remove(self)

@@ -51,11 +51,11 @@ def add(score):
 def draw():
     global font, last_score
     no = 1
-    x = get_canvas_width() // 2 - 200
-    y = get_canvas_height() // 2 + 100
+    x = get_canvas_width() // 2 - 100
+    y = get_canvas_height() // 2 + 50
     for e in scores:
         str = "{:2d} {:7.1f}".format(no, e.score)
-        color = (255, 255, 255) if no == last_score else (150, 240, 170)
+        color = (150, 240, 170) if no == last_score else (255, 255, 255)
         font.draw(x, y, str, color)
         y -= 30
         no += 1

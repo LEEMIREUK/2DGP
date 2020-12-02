@@ -13,6 +13,7 @@ scoreX = 10
 scoreY = 800 - 10
 Color = (255, 255, 255)
 score = 0
+go_boss = 10
 
 def enter():
     gfw.world.init(['stage_map', 'player', 'bullet', 'skill',
@@ -57,6 +58,7 @@ def enter():
 
 def update():
     if player.end:
+        result_state.IsWin = False
         gfw.change(result_state)
     gfw.world.update()
 
@@ -68,7 +70,7 @@ def update():
     stage_playtime += gfw.delta_time
 
     # boss 출현
-    if stage_playtime > 50:
+    if stage_playtime > go_boss:
         if gfw.world.count_at(gfw.layer.boss) == 0:
             gfw.world.add(gfw.layer.boss, boss)
 

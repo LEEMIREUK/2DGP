@@ -18,7 +18,7 @@ class Player:
     }
     KEYDOWN_LCTRL = (SDL_KEYDOWN, SDLK_LCTRL)
     KEYDOWN_LSHIFT = (SDL_KEYDOWN, SDLK_LSHIFT)
-    SHOOT_INTERVAL = 0.5
+    SHOOT_INTERVAL = 2
     IMAGE_RECTS = [
         (1, 0, 21, 31),
         (24, 0, 23, 31),

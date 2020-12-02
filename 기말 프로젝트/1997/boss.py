@@ -1,5 +1,7 @@
 import gfw
 import random
+import result_state
+import stage
 from pico2d import *
 from bossbullet import BossBullet
 
@@ -114,6 +116,7 @@ class Boss:
                 self.explosion_frame += 1
                 if self.explosion_time == 12:
                     Boss.remove(self)
+
             return
 
         global BOUNDARY_LEFT, BOUNDARY_RIGHT, BOUNDARY_UP, BOUNDARY_DOWN
@@ -180,4 +183,6 @@ class Boss:
 
     def remove(self):
         gfw.world.remove(self)
-        print("승리")
+        stage.score += 200
+        result_state.IsWin = True
+        gfw.change(result_state)
