@@ -13,6 +13,11 @@ def enter():
     save_score()
     load_score()
 
+    global music_result
+    music_result = load_wav('sound/result.wav')
+    music_result.set_volume(30)
+    music_result.repeat_play()
+
 def draw():
     bg.draw(get_canvas_width() // 2, get_canvas_height() // 2, 600, 800)
     gameover.draw(get_canvas_width() // 2, get_canvas_height() // 2 + 200)
@@ -49,8 +54,9 @@ def load_score():
     score.sort(reverse=True)
 
 def exit():
-    global bg, gameover, board, font
+    global bg, gameover, board, font, music_result
     del bg
     del gameover
     del board
     del font
+    del music_result

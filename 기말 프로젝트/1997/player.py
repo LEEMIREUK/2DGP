@@ -67,6 +67,8 @@ class Player:
         self.shoot_speed = 200
         self.upgrade = 1
 
+        self.skillcount = 5
+
         global invincibility
         invincibility = True
 
@@ -81,6 +83,9 @@ class Player:
             Player.LIFE = 1
         elif Player.LIFE == 1:
             self.end = True
+
+        self.music_shoot = load_wav('sound/shoot.wav')
+        self.music_skill = load_wav('sound/razer.wav')
 
     def fire(self):
         bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2,
@@ -170,9 +175,15 @@ class Player:
         if not invincibility:
             pair = (e.type, e.key)
             if pair== Player.KEYDOWN_LCTRL:
+                self.music_shoot.set_volume(60)
+                self.music_shoot.play(1)
                 Player.fire(self)
             if pair == Player.KEYDOWN_LSHIFT:
-                Player.skill(self)
+                if self.skillcount > 0:
+                    self.skillcount -= 1
+                    self.music_skill.set_volume(60)
+                    self.music_skill.play(1)
+                    Player.skill(self)
         else:
             return
 
@@ -201,5 +212,6 @@ class Player:
         return invincibility
 
     def remove(self):
+        del self.music_shoot
+        del self.music_skill
         gfw.world.remove(self)
-        # 게임 오버

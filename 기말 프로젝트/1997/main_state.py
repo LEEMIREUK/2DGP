@@ -21,6 +21,13 @@ def enter():
     button_image = gobj.ButtonImage('button_image.png')
     gfw.world.add(gfw.layer.button_image, button_image)
 
+    global music_main, music_key, music_select
+    music_main = load_wav('sound/main.wav')
+    music_key = load_wav('sound/key.wav')
+    music_select = load_wav('sound/select.wav')
+    music_main.set_volume(30)
+    music_main.repeat_play()
+
 def update():
     gfw.world.update()
     global loading_on
@@ -43,16 +50,20 @@ def handle_event(e):
         if e.key == SDLK_ESCAPE:
             gfw.quit()
         elif e.key == SDLK_UP:
+            music_key.play()
             if y == 300:
                 button_image.set_y(200)
             elif y == 200:
                 button_image.set_y(300)
         elif e.key == SDLK_DOWN:
+            music_key.play()
             if y == 200:
                 button_image.set_y(300)
             elif y == 300:
                 button_image.set_y(200)
         elif e.key == SDLK_SPACE:
+            music_select.play()
+            delay(0.4)
             if y == 300:
                 gobj.effect1_on = True
             elif y == 200:
@@ -61,10 +72,14 @@ def handle_event(e):
 
 def exit():
     global main_image, start_image, exit_image, button_image
+    global music_main, music_key, music_select
     del main_image
     del start_image
     del exit_image
     del button_image
+    del music_main
+    del music_key
+    del music_select
 
 def pause():
     pass

@@ -38,10 +38,20 @@ def enter():
     global stage_playtime
     stage_playtime = 0
 
-    global score, font, life
+    global score, font, life, pskill
     score = 0
     font = gfw.font.load('res/ENCR10B.TTF', 20)
     life = gfw.font.load('res/ENCR10B.TTF', 20)
+    pskill = gfw.font.load('res/ENCR10B.TTF', 20)
+
+    global music_stage, music_explosion, music_item
+    music_stage = load_wav('sound/stage.wav')
+    music_explosion = load_wav('sound/explosion.wav')
+    music_item = load_wav('sound/item.wav')
+    music_stage.set_volume(30)
+    music_explosion.set_volume(30)
+
+    music_stage.repeat_play()
 
 def update():
     if player.end:
@@ -100,12 +110,14 @@ def check_collision_enemy(e):
         if collision.collides_box(player, e):
             e.explosion()
             player.explosion()
+            music_explosion.play(1)
             return
 
     # 충돌 enemy with player bullet
     for b in gfw.world.objects_at(gfw.layer.bullet):
         if collision.collides_box(b, e):
             e.explosion()
+            music_explosion.play(1)
             b.remove()
             return
 
@@ -115,6 +127,7 @@ def check_collision_enemybullet(eb):
     if not player.returninfo():
         if collision.collides_box(player, eb):
             player.explosion()
+            music_explosion.play(1)
             return
 
 def check_collision_playerskill(s):
@@ -122,6 +135,7 @@ def check_collision_playerskill(s):
     for e in gfw.world.objects_at(gfw.layer.enemy):
         if collision.collides_box(s, e):
             e.explosion()
+            music_explosion.play(1)
             return
 
     # 충돌 player skill with enemy_bullet
@@ -137,6 +151,7 @@ def check_collision_item():
             if player.upgrade < 4:
                 player.upgrade += 1
             i.remove()
+            music_item.play(1)
             return
 
 def check_collision_boss():
@@ -144,6 +159,7 @@ def check_collision_boss():
     # 충돌 player with boss
     if collision.collides_box(player, boss):
         player.explosion()
+        music_explosion.play(1)
         boss.hit = True
 
     # 충돌 player bullet with boss
@@ -155,6 +171,7 @@ def check_collision_boss():
             boss.hp -= b.damage
             if boss.hp <= 0:
                 boss.explosion()
+                music_explosion.play(1)
             return
 
     # 충돌 player skill with boss
@@ -165,21 +182,24 @@ def check_collision_boss():
             boss.hp -= s.damage
             if boss.hp <= 0:
                 boss.explosion()
+                music_explosion.play(1)
             return
 
     # 충돌 player with boss bullet
     for bb in gfw.world.objects_at(gfw.layer.boss_bullet):
         if collision.collides_box(player, bb):
             player.explosion()
+            music_explosion.play(1)
             return
 
 def draw():
     gfw.world.draw()
     collision.draw_collision_box()
 
-    global score, font, life, player
+    global score, font, life, skill, player
     font.draw(scoreX, scoreY, "Score: %.2f" % score, Color)
     life.draw(500, 790, "Life: %d" % player.LIFE, Color)
+    pskill.draw(500, 770, "Skill: %d" % player.skillcount, Color)
 
 def handle_event(e):
     global player
@@ -195,7 +215,11 @@ def get_playertime():
     return stage_playtime
 
 def exit():
-    pass
+    global music_stage, font, life, pskill
+    del music_stage
+    del font
+    del life
+    del pskill
 
 if __name__=='__main__':
     gfw.run_main()

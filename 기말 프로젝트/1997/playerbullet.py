@@ -28,7 +28,6 @@ class PlayerBullet:
             self.upgrade_image.clip_draw(0, 0, self.upgrade_width, self.upgrade_height, self.x, self.y)
 
     def update(self):
-        print(self.y)
         self.y += self.dy * gfw.delta_time
         if self.y > get_canvas_height():
             self.remove()

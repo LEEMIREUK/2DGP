@@ -1,10 +1,6 @@
-import gobj
 import gfw
 import stage
 from pico2d import *
-
-# canvas_width = 600
-# canvas_height = 800
 
 def enter():
     global loading, first_image, second_image, third_image, fourth_image
@@ -25,6 +21,11 @@ def enter():
 
     global time
     time = 0
+
+    global music_loading
+    music_loading = load_wav('sound/loading.wav')
+    music_loading.set_volume(30)
+    music_loading.play(1)
 
 def update():
     global loading_time
@@ -82,11 +83,13 @@ def handle_event(e):
 
 def exit():
     global loading, first_image, second_image, third_image, fourth_image
+    global music_loading
     del loading
     del first_image
     del second_image
     del third_image
     del fourth_image
+    del music_loading
 
 def pause():
     pass
