@@ -1,7 +1,9 @@
 import gfw
 import main_state
 import stage
+import highscore
 from pico2d import *
+
 Color = (255, 255, 255)
 
 def enter():
@@ -9,9 +11,11 @@ def enter():
     bg = gfw.image.load('res/result_bg.png')
     gameover = gfw.image.load('res/game_over.png')
     board = gfw.image.load('res/board.png')
-    font = gfw.font.load('res/ENCR10B.TTF', 20)
-    save_score()
-    load_score()
+    # save_score()
+    # load_score()
+
+    highscore.load()
+    highscore.add(stage.score)
 
     global music_result
     music_result = load_wav('sound/result.wav')
@@ -23,8 +27,7 @@ def draw():
     gameover.draw(get_canvas_width() // 2, get_canvas_height() // 2 + 200)
     board.draw(get_canvas_width() // 2, get_canvas_height() // 2 - 100)
 
-    font.draw(225, 400, 'Score: %.2f' % stage.score, Color)
-    # font.draw(225, 300, 'High Score: %.2f' % )
+    highscore.draw()
 
 def update():
     pass
@@ -36,27 +39,27 @@ def handle_event(e):
         if e.key == SDLK_ESCAPE:
             gfw.change(main_state)
 
-def save_score():
-    file = []
-    with open('data.json', 'r') as f:
-        files = json.load(f)
-    for z in files:
-        file.append(z)
-    data = [float(stage.score)]
-    file.append(data)
-    with open('data.json', 'w') as f:
-        json.dump(file, f)
-
-def load_score():
-    global score
-    with open('data.json', 'r') as f:
-        score = json.load(f)
-    score.sort(reverse=True)
+# def save_score():
+#     file = []
+#     with open('data.json', 'r') as f:
+#         files = json.load(f)
+#     for z in files:
+#         file.append(z)
+#     data = [float(stage.score)]
+#     file.append(data)
+#     with open('data.json', 'w') as f:
+#         json.dump(file, f)
+#
+# def load_score():
+#     global score
+#     with open('data.json', 'r') as f:
+#         score = json.load(f)
+#     score.sort(reverse=True)
 
 def exit():
     global bg, gameover, board, font, music_result
     del bg
     del gameover
     del board
-    del font
+    #del font
     del music_result

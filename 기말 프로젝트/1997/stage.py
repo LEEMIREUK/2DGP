@@ -157,7 +157,6 @@ def check_collision_item():
             return
 
 def check_collision_boss():
-    global score
     # 충돌 player with boss
     if collision.collides_box(player, boss):
         player.explosion()

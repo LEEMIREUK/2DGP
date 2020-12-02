@@ -86,6 +86,7 @@ class Player:
         elif Player.LIFE == 2:
             Player.LIFE = 1
         elif Player.LIFE == 1:
+            Player.LIFE = 4
             self.end = True
 
     def fire(self):
