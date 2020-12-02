@@ -81,9 +81,12 @@ def handle_event(e):
             pass
 
 def exit():
-    global loading
-    gfw.image.unload('res/player1_loading.png')
+    global loading, first_image, second_image, third_image, fourth_image
     del loading
+    del first_image
+    del second_image
+    del third_image
+    del fourth_image
 
 def pause():
     pass

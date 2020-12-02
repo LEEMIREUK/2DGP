@@ -44,4 +44,5 @@ class BossBullet:
         return x - h, y - h, x + h, y + h
 
     def remove(self):
+        stage.score += 500
         gfw.world.remove(self)

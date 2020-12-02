@@ -28,11 +28,13 @@ class Player:
         (138, 0, 21, 31),
     ]
     MAX_ROLL = 0.4
+    LIFE = 4
 
     def __init__(self):
         self.start_image = gfw.image.load('res/player1_start_animation.png')
         self.image = gfw.image.load('res/player1_animation.png')
         self.speed = 200
+        self.end = False
 
         #image size info
         self.image_size_width = 23
@@ -71,6 +73,15 @@ class Player:
         global moving
         moving = False
 
+        if Player.LIFE == 4:
+            Player.LIFE = 3
+        elif Player.LIFE == 3:
+            Player.LIFE = 2
+        elif Player.LIFE == 2:
+            Player.LIFE = 1
+        elif Player.LIFE == 1:
+            self.end = True
+
     def fire(self):
         bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2,
                               self.shoot_speed, self.upgrade)
@@ -82,6 +93,7 @@ class Player:
 
     def explosion(self):
         self.die = True
+
 
     def draw(self):
         width, height = 23, 31

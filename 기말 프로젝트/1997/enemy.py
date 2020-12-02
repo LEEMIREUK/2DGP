@@ -96,4 +96,5 @@ class Enemy:
         return x - half, y - half, x + half, y + half
 
     def remove(self):
+        stage.score += 5
         gfw.world.remove(self)

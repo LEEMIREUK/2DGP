@@ -2,12 +2,18 @@ import gfw
 import gobj
 import collision
 import main_state
+import result_state
 from pico2d import *
 from player import Player
 from enemy import Enemy
 from item import Item
 from boss import Boss
-from bossbullet import BossBullet
+
+scoreX = 10
+scoreY = 800 - 10
+Color = (255, 255, 255)
+score = 0
+LIFE = 3
 
 def enter():
     gfw.world.init(['stage_map', 'player', 'bullet', 'skill',
@@ -33,8 +39,19 @@ def enter():
     global stage_playtime
     stage_playtime = 0
 
+    global score, font, life
+    score = 0
+    font = gfw.font.load('res/ENCR10B.TTF', 20)
+    life = gfw.font.load('res/ENCR10B.TTF', 20)
+
 def update():
+    if player.end:
+        gfw.change(result_state)
+        return
     gfw.world.update()
+
+    global score
+    score += gfw.delta_time
 
     # stage1 playetime
     global stage_playtime
@@ -77,7 +94,6 @@ def update():
 
     check_collision_item()
     check_collision_boss()
-
 
 def check_collision_enemy(e):
     # 충돌 enemy with player
@@ -126,6 +142,7 @@ def check_collision_item():
             return
 
 def check_collision_boss():
+    global score
     # 충돌 player with boss
     if collision.collides_box(player, boss):
         player.explosion()
@@ -161,6 +178,10 @@ def check_collision_boss():
 def draw():
     gfw.world.draw()
     collision.draw_collision_box()
+
+    global score, font, life, player
+    font.draw(scoreX, scoreY, "Score: %.2f" % score, Color)
+    life.draw(500, 790, "Life: %d" % player.LIFE, Color)
 
 def handle_event(e):
     global player
