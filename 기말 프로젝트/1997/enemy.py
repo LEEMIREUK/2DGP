@@ -87,7 +87,6 @@ class Enemy:
         dx, dy = tx - x, ty - y
         distance = math.sqrt(dx ** 2 + dy ** 2)
         if distance == 0: return
-
         self.delta = dx / distance, dy / distance
 
     def get_bb(self):

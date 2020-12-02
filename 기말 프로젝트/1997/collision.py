@@ -14,7 +14,6 @@ def collides_box(a, b):
     if ra < lb: return False
     if ba > tb: return False
     if ta < bb: return False
-
     return True
 
 def draw_collision_box():

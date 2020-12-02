@@ -23,8 +23,7 @@ class Boss:
         self.shooting_interval = 2
         self.shoot_mode = 0
         self.time = 0
-        self.hp = 1000
-
+        self.hp = 1500
 
         self.die = False
         self.explosion_time = 0
@@ -116,7 +115,6 @@ class Boss:
                 self.explosion_frame += 1
                 if self.explosion_time == 12:
                     Boss.remove(self)
-
             return
 
         global BOUNDARY_LEFT, BOUNDARY_RIGHT, BOUNDARY_UP, BOUNDARY_DOWN

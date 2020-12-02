@@ -13,7 +13,7 @@ scoreX = 10
 scoreY = 800 - 10
 Color = (255, 255, 255)
 score = 0
-go_boss = 10
+go_boss = 80
 
 def enter():
     gfw.world.init(['stage_map', 'player', 'bullet', 'skill',
@@ -68,6 +68,7 @@ def update():
     # stage1 playetime
     global stage_playtime
     stage_playtime += gfw.delta_time
+    print(stage_playtime)
 
     # boss 출현
     if stage_playtime > go_boss:
@@ -197,7 +198,6 @@ def check_collision_boss():
 
 def draw():
     gfw.world.draw()
-    collision.draw_collision_box()
 
     global score, font, life, skill, player
     font.draw(scoreX, scoreY, "Score: %.2f" % score, Color)

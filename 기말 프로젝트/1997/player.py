@@ -1,6 +1,5 @@
 import gfw
 import collision
-import stage
 from pico2d import *
 from playerbullet import PlayerBullet
 from playerskill import PlayerSkill
@@ -91,7 +90,7 @@ class Player:
 
     def fire(self):
         bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2,
-                              self.shoot_speed, self.upgrade)
+                              self.shoot_speed + self.upgrade * 20, self.upgrade)
         gfw.world.add(gfw.layer.bullet, bullet)
 
     def skill(self):
@@ -175,7 +174,7 @@ class Player:
             return
         if not invincibility:
             pair = (e.type, e.key)
-            if pair== Player.KEYDOWN_LCTRL:
+            if pair == Player.KEYDOWN_LCTRL:
                 self.music_shoot.set_volume(60)
                 self.music_shoot.play(1)
                 Player.fire(self)
