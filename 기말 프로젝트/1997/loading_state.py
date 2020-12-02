@@ -15,7 +15,7 @@ def enter():
     fourth_image = gfw.image.load('res/loading4.png')
 
     global loading_time
-    loading_time = 6
+    loading_time = 4
 
     global first_index, second_index, third_index, fourth_index
     first_index = 0
@@ -33,25 +33,25 @@ def update():
 
     loading_time -= gfw.delta_time
 
-    if loading_time < 6:
+    if loading_time < 4:
         if first_index < 7:
             time += 1
             if time % 5 == 1:
                 first_index += 1
 
-    if loading_time < 4.5:
+    if loading_time < 3:
         if second_index < 3:
             time += 1
             if time % 5 == 1:
                 second_index += 1
 
-    if loading_time < 3:
+    if loading_time < 2:
         if third_index < 3:
             time += 1
             if time % 5 == 1:
                 third_index += 1
 
-    if loading_time < 1.5:
+    if loading_time < 1:
         if fourth_index < 3:
             time += 1
             if time % 5 == 1:
@@ -64,13 +64,13 @@ def draw():
     loading.draw(get_canvas_width() // 2, get_canvas_height() // 2, 600, 800)
     global first_index, second_index, third_index, fourth_index
 
-    if loading_time < 6:
+    if loading_time < 4:
         first_image.clip_draw(first_index * 123, 0, 123, 104, 150, 680, 185, 156)
-    if loading_time < 4.5:
-        second_image.clip_draw(second_index * 240, 0, 240, 104, 420, 530, 360, 156)
     if loading_time < 3:
+        second_image.clip_draw(second_index * 240, 0, 240, 104, 420, 530, 360, 156)
+    if loading_time < 2:
         third_image.clip_draw(third_index * 240, 0, 240, 104, 180, 375, 360, 156)
-    if loading_time < 1.5:
+    if loading_time < 1:
         fourth_image.clip_draw(fourth_index * 240, 0, 240, 104, 420, 215, 360, 156)
 
 def handle_event(e):

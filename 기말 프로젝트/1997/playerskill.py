@@ -6,7 +6,7 @@ class PlayerSkill:
     def __init__(self, x, y):
         self.x, self.y = x, y + get_canvas_height() // 2 + 50
         self.image = gfw.image.load('res/razer_skill.png')
-        self.damage = 100
+        self.damage = 1
         self.fidx = 0
         self.time = 0
         self.width = 33

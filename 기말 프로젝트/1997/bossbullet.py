@@ -5,13 +5,13 @@ from pico2d import *
 
 class BossBullet:
     SIZE = 16
-    def __init__(self, boss_pos):
+    def __init__(self, boss_pos, des):
         self.pos = (boss_pos[0], boss_pos[1])
         self.size = 16, 16
         self.image = gfw.image.load('res/boss_bullet.png')
         self.speed = 100
         self.delta = 0, 0
-        self.des = (random.randint(0, get_canvas_width()), 0)
+        self.des = des
         BossBullet.set_target(self)
 
     def draw(self):

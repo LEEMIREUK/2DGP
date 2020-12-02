@@ -41,7 +41,7 @@ def update():
     stage_playtime += gfw.delta_time
 
     # boss 출현
-    if stage_playtime > 1:
+    if stage_playtime > 50:
         if gfw.world.count_at(gfw.layer.boss) == 0:
             gfw.world.add(gfw.layer.boss, boss)
 
@@ -77,6 +77,7 @@ def update():
 
     check_collision_item()
     check_collision_boss()
+
 
 def check_collision_enemy(e):
     # 충돌 enemy with player
@@ -136,6 +137,9 @@ def check_collision_boss():
             b.remove()
             boss.hit = True
             # boss hp -
+            boss.hp -= b.damage
+            if boss.hp <= 0:
+                boss.explosion()
             return
 
     # 충돌 player skill with boss
@@ -143,6 +147,9 @@ def check_collision_boss():
         if collision.collides_box(s, boss):
             # boss hp -
             boss.hit = True
+            boss.hp -= s.damage
+            if boss.hp <= 0:
+                boss.explosion()
             return
 
     # 충돌 player with boss bullet
@@ -150,6 +157,7 @@ def check_collision_boss():
         if collision.collides_box(player, bb):
             player.explosion()
             return
+
 def draw():
     gfw.world.draw()
     collision.draw_collision_box()

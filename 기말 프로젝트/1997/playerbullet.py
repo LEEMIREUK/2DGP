@@ -8,7 +8,15 @@ class PlayerBullet:
         self.bullet_level = upgrade
         self.image = gfw.image.load('res/player1_bullet1.png')
         self.upgrade_image = gfw.image.load('res/player1_bullet2.png')
-        self.damage = 10
+        if upgrade == 1:
+            self.damage = 5
+        elif upgrade == 2:
+            self.damage = 5
+        elif upgrade == 3:
+            self.damage = 15
+        elif upgrade == 4:
+            self.damage = 30
+
         self. width, self.height = 15, 34
         self.upgrade_width, self.upgrade_height = 50, 60
 
