@@ -68,7 +68,6 @@ def update():
     # stage1 playetime
     global stage_playtime
     stage_playtime += gfw.delta_time
-    print(stage_playtime)
 
     # boss 출현
     if stage_playtime > go_boss:
