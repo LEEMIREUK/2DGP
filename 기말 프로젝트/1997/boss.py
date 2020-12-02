@@ -5,7 +5,7 @@ from bossbullet import BossBullet
 
 class Boss:
     def __init__(self):
-        self.pos = get_canvas_width() // 2, get_canvas_height()
+        self.pos = get_canvas_width() // 2, get_canvas_height() + 150
         self.image = gfw.image.load('res/boss.png')
         self.hit_image = gfw.image.load('res/hit_boss.png')
         self.explosion_image = gfw.image.load('res/boss_explosion.png')
@@ -52,7 +52,7 @@ class Boss:
         else:
             self.image.draw(*self.pos, 318, 192)
 
-    def fire(self , mode):
+    def fire(self, mode):
         x, y = self.pos
         self.shoot_time = 0
         if mode == 0:

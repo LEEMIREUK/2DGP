@@ -13,7 +13,6 @@ scoreX = 10
 scoreY = 800 - 10
 Color = (255, 255, 255)
 score = 0
-LIFE = 3
 
 def enter():
     gfw.world.init(['stage_map', 'player', 'bullet', 'skill',
@@ -47,7 +46,6 @@ def enter():
 def update():
     if player.end:
         gfw.change(result_state)
-        return
     gfw.world.update()
 
     global score

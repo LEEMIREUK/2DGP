@@ -134,7 +134,6 @@ class Player:
                 self.invic_time += gfw.delta_time
                 if self.invic_time >= 1:
                     invincibility = False
-
         else:
             self.explosion_time += 1
             if self.explosion_time % 5:
@@ -166,12 +165,16 @@ class Player:
             pair = (e.type, e.key)
             if pair in Player.KEY_MAP:
                 self.delta = collision.point_add(self.delta, Player.KEY_MAP[pair])
+        else:
+            return
         if not invincibility:
             pair = (e.type, e.key)
             if pair== Player.KEYDOWN_LCTRL:
                 Player.fire(self)
             if pair == Player.KEYDOWN_LSHIFT:
                 Player.skill(self)
+        else:
+            return
 
     def start_motion(self):
         global moving
