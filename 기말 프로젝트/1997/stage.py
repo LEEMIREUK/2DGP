@@ -22,9 +22,11 @@ def enter():
     stage_map = gobj.StageMap('stage_map.png')
     gfw.world.add(gfw.layer.stage_map, stage_map)
 
-    global player
+    global player, player_life
     player = Player()
     gfw.world.add(gfw.layer.player, player)
+
+    player.end = False
 
     global boss
     boss = Boss()

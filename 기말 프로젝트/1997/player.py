@@ -1,5 +1,6 @@
 import gfw
 import collision
+import stage
 from pico2d import *
 from playerbullet import PlayerBullet
 from playerskill import PlayerSkill
@@ -75,6 +76,9 @@ class Player:
         global moving
         moving = False
 
+        self.music_shoot = load_wav('sound/shoot.wav')
+        self.music_skill = load_wav('sound/razer.wav')
+
         if Player.LIFE == 4:
             Player.LIFE = 3
         elif Player.LIFE == 3:
@@ -83,9 +87,6 @@ class Player:
             Player.LIFE = 1
         elif Player.LIFE == 1:
             self.end = True
-
-        self.music_shoot = load_wav('sound/shoot.wav')
-        self.music_skill = load_wav('sound/razer.wav')
 
     def fire(self):
         bullet = PlayerBullet(self.x, self.y + self.image_size_height // 2,
@@ -98,7 +99,6 @@ class Player:
 
     def explosion(self):
         self.die = True
-
 
     def draw(self):
         width, height = 23, 31
