@@ -21,6 +21,9 @@ def enter():
     player = Player()
     gfw.world.add(gfw.layer.player, player)
 
+    global boss
+    boss = Boss()
+
     global enemy_time
     enemy_time = 2
 
@@ -37,9 +40,10 @@ def update():
     global stage_playtime
     stage_playtime += gfw.delta_time
 
+    # boss 출현
     if stage_playtime > 1:
         if gfw.world.count_at(gfw.layer.boss) == 0:
-            gfw.world.add(gfw.layer.boss, Boss())
+            gfw.world.add(gfw.layer.boss, boss)
 
     else:
         # enemy 생성 시간
@@ -72,6 +76,7 @@ def update():
         item_gen_time = 15
 
     check_collision_item()
+    check_collision_boss()
 
 def check_collision_enemy(e):
     # 충돌 enemy with player
@@ -99,13 +104,13 @@ def check_collision_enemybullet(eb):
 
 def check_collision_playerskill(s):
     # 충돌 player skill with enemy
-    for e in gfw.gfw.world.objects_at(gfw.layer.enemy):
+    for e in gfw.world.objects_at(gfw.layer.enemy):
         if collision.collides_box(s, e):
             e.explosion()
             return
 
     # 충돌 player skill with enemy_bullet
-    for eb in gfw.gfw.world.objects_at(gfw.layer.enemy_bullet):
+    for eb in gfw.world.objects_at(gfw.layer.enemy_bullet):
         if collision.collides_box(s, eb):
             eb.remove()
             return
@@ -120,8 +125,31 @@ def check_collision_item():
             return
 
 def check_collision_boss():
-    pass
+    # 충돌 player with boss
+    if collision.collides_box(player, boss):
+        player.explosion()
+        boss.hit = True
 
+    # 충돌 player bullet with boss
+    for b in gfw.world.objects_at(gfw.layer.bullet):
+        if collision.collides_box(b, boss):
+            b.remove()
+            boss.hit = True
+            # boss hp -
+            return
+
+    # 충돌 player skill with boss
+    for s in gfw.world.objects_at(gfw.layer.skill):
+        if collision.collides_box(s, boss):
+            # boss hp -
+            boss.hit = True
+            return
+
+    # 충돌 player with boss bullet
+    for bb in gfw.world.objects_at(gfw.layer.boss_bullet):
+        if collision.collides_box(player, bb):
+            player.explosion()
+            return
 def draw():
     gfw.world.draw()
     collision.draw_collision_box()

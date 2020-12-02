@@ -69,10 +69,9 @@ def draw():
     if loading_time < 4.5:
         second_image.clip_draw(second_index * 240, 0, 240, 104, 420, 530, 360, 156)
     if loading_time < 3:
-        third_image.clip_draw(third_index * 240, 0, 240, 104, 150, 375, 360, 156)
+        third_image.clip_draw(third_index * 240, 0, 240, 104, 180, 375, 360, 156)
     if loading_time < 1.5:
         fourth_image.clip_draw(fourth_index * 240, 0, 240, 104, 420, 215, 360, 156)
-
 
 def handle_event(e):
     if e.type == SDL_QUIT:
