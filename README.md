@@ -126,9 +126,9 @@
 >![개발 진척도](https://user-images.githubusercontent.com/32861131/100963553-eaad5b80-3569-11eb-9556-3ec0533b1cce.PNG)   
 >#### 커밋 횟수   
 >![커밋 횟수](https://user-images.githubusercontent.com/32861131/100963550-e97c2e80-3569-11eb-9fe5-bced1408626d.PNG)   
->####1차 발표 영상 링크   
+>#### 1차 발표 영상 링크   
 >https://youtu.be/Jk9C52i9gfE   
->####2차 발표 영상 링크   
+>#### 2차 발표 영상 링크   
 >https://youtu.be/R5t40rSQm7o   
->####3차 발표 영상 링크
+>#### 3차 발표 영상 링크
 >
